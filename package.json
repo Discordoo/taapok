@@ -1,0 +1,23 @@
+{
+  "name": "taapok",
+  "version": "1.0.0",
+  "description": "SUMMARY.md generator for Discordoo documentation",
+  "main": "./src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "taapok": "./src/index.js"
+  },
+  "keywords": [
+    "discordoo",
+    "documentation"
+  ],
+  "author": "mirdukkk",
+  "license": "ISC",
+  "dependencies": {
+    "json2md": "^1.10.0",
+    "meow": "^10.0.0"
+  }
+}
