@@ -8,9 +8,14 @@ import writer from './writer.js'
 import markdowner from './markdowner.js'
 
 const help = `
-  Welcome to taapok, SUMMARY.md generator for Discordoo documentation. Usage:
+  Usage:
   
-  $ taapok --input="path/to/docs.json" --output="path/to/SUMMARY.md"
+  $ taapok --input="path/to/docs.json" --output="path/to/summary.md"
+  ┗ will generate sumarry.md from docs.json in 'path/to' directory.
+  
+  $ taapok --input="path/to/docs.json" --output="path/to/summary.md" --prefix="docs/"
+  ┗ will generate sumarry.md with md paths prefix 'docs' (core/client.md => docs/core/client.md)
+
 `
 
 const cli = meow(help, {
