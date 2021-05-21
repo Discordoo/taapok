@@ -18,6 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "json2md": "^1.10.0",
+    "markdown-it": "^12.0.6",
     "meow": "^10.0.0"
   }
 }

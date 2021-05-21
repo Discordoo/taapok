@@ -1,6 +1,7 @@
 # IDEs
 .idea
 .vscode
+taapok.iml
 
 # Deps
 node_modules

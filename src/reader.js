@@ -1,23 +1,21 @@
 import fs from 'fs'
 import path from 'path'
 
-export default function read(file) {
-  const place = path.resolve(process.cwd(), file)
+export default function read(dir) {
+  const place = path.join(process.cwd(), dir, '/')
 
-  let json
+  let classes, interfaces
 
   try {
-    json = JSON.parse(fs.readFileSync(place, { encoding: 'utf-8' }))
+    classes = fs.readdirSync(place + 'classes').map(f => `classes/${f}`)
+    interfaces = fs.readdirSync(place + 'interfaces').map(f => `interfaces/${f}`)
   } catch (e) {
-
-    if (e instanceof SyntaxError) {
-      console.error('JSON is invalid.')
-    } else {
-      console.error('File not found.')
-    }
-
+    console.error('Error when reading directories:', e)
     process.exit(1)
   }
 
-  return json
+  return [
+    ...classes.map(c => ({ name: c, source: path.join(process.cwd(), dir, c) })),
+    ...interfaces.map(i => ({ name: i, source: path.join(process.cwd(), dir, i) })),
+  ]
 }

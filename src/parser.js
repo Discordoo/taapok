@@ -1,30 +1,33 @@
-import constanter from './constanter.js'
+import MarkdownIt from 'markdown-it'
+import fs from 'fs'
 
-function parse(target, kind) {
-  const group = target.groups ? target.groups.find(g => g.kind === kind) : null
+export default function parser(files) {
+  const modules = {}
 
-  if (!group) return []
+  files.forEach(file => {
+    const module = file.name.split('/')[1].split('.')[0]
 
-  return target.children.filter(c => group.children.includes(c.id))
-    .map(c => Object.defineProperty(c, 'module', { value: target.name }))
-}
+    const filePrepare = {
+      purpose: null,
+      source: file.source,
+      name: file.name
+    }
 
-export default function parser(json) {
-  const classes = [], interfaces = [], functions = [], types = []
+    filePrepare.purpose = new MarkdownIt()
+      .parse(fs.readFileSync(file.source, { encoding: 'utf-8' }), {})
+      [4] // place number 4 in the parsed md array
+      .content // 'Class: ClientBuilder<Stack>'
+      .split(':') // [ 'Class', ' ClientBuilder<Stack>' ]
+      [1] // ' ClientBuilder<Stack>'
+      .trim() // 'ClientBuilder<Stack>'
+      .replace(/<.+>/g, '') // 'ClientBuilder'
 
-  const modules = parse(json, constanter.typedoc_module)
-
-  modules.forEach(module => {
-    const moduleClasses = parse(module, constanter.typedoc_class),
-      moduleInterfaces = parse(module, constanter.typedoc_interface),
-      moduleFunctions = parse(module, constanter.typedoc_function),
-      moduleTypes = parse(module, constanter.typedoc_type)
-
-    classes.push(...moduleClasses)
-    interfaces.push(...moduleInterfaces)
-    functions.push(...moduleFunctions)
-    types.push(...moduleTypes)
+    if (!modules[module]) {
+      modules[module] = [ filePrepare ]
+    } else {
+      modules[module].push(filePrepare)
+    }
   })
 
-  return { classes, interfaces, functions, types }
+  return modules
 }

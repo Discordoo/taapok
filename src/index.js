@@ -10,11 +10,11 @@ import markdowner from './markdowner.js'
 const help = `
   Usage:
   
-  $ taapok --input="path/to/docs.json" --output="path/to/summary.md"
-  ┗ will generate sumarry.md from docs.json in 'path/to' directory.
+  $ taapok --input="path/to/generated/markdown" --output="path/to/summary.md"
+  ┗ will generate sumarry.md from generated markdown in 'path/to' directory.
   
-  $ taapok --input="path/to/docs.json" --output="path/to/summary.md" --prefix="docs/"
-  ┗ will generate sumarry.md with md paths prefix 'docs' (core/client.md => docs/core/client.md)
+  $ taapok --input="path/to/generated/markdown" --output="path/to/summary.md" --prefix="docs/"
+  ┗ will generate sumarry.md with md paths prefix 'docs' (classes/core.client.md => docs/classes/core.client.md)
 
 `
 
@@ -32,14 +32,15 @@ const cli = meow(help, {
       type: 'string'
     }
   },
-  importMeta: import.meta
+  importMeta: import.meta,
+  autoHelp: true
 })
 
 if (!cli.flags.input || !cli.flags.output) cli.showHelp(1)
 
-const file = reader(cli.flags.input)
-const json = parser(file)
-const md = markdowner(json, cli.flags.prefix)
+const rawFiles = reader(cli.flags.input)
+const files = parser(rawFiles)
+const md = markdowner(files, cli.flags.prefix)
 const result = writer(cli.flags.output, md)
 
 console.log(result)
