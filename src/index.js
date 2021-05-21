@@ -11,7 +11,7 @@ const help = `
   Usage:
   
   $ taapok --input="path/to/generated/markdown" --output="path/to/summary.md"
-  ┗ will generate sumarry.md from generated markdown in 'path/to' directory.
+  ┗ will generate sumarry.md from generated markdown in 'path/to/generated/markdown' directory.
   
   $ taapok --input="path/to/generated/markdown" --output="path/to/summary.md" --prefix="docs/"
   ┗ will generate sumarry.md with md paths prefix 'docs' (classes/core.client.md => docs/classes/core.client.md)
