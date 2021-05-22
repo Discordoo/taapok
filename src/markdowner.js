@@ -10,7 +10,9 @@ export default function markdowner(object, dir = '') {
 
   function prepareSource(obj) {
     if (!obj.name) throw new Error('unknown file without source')
-    return dir && dir.endsWith('/') ? dir : dir + '/' + (obj.name || '')
+    let result = dir
+    if (result && !result.endsWith('/')) result += '/'
+    return result + (obj.name || '')
   }
 
   Object.entries(object).forEach(([ module, files ]) => {
