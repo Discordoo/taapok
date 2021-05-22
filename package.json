@@ -1,6 +1,6 @@
 {
   "name": "@discordoo/taapok",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "SUMMARY.md generator for Discordoo documentation",
   "main": "./src/index.js",
   "type": "module",
