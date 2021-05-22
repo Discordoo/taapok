@@ -2,7 +2,9 @@ import json2md from 'json2md'
 import capitalizer from './capitalizer.js'
 
 export default function markdowner(object, dir = '') {
-  const prepare = []
+  const prepare = [
+    { p: '[Readme](README.md)' }
+  ]
 
   function element(obj) {
     return `[${obj.purpose}](${prepareSource(obj)})`
@@ -16,7 +18,7 @@ export default function markdowner(object, dir = '') {
   }
 
   Object.entries(object).forEach(([ module, files ]) => {
-    prepare.push({ h1: capitalizer(module) })
+    prepare.push({ h2: capitalizer(module) })
     prepare.push({ ul: files.map(file => element(file)) })
     prepare.push({ p: '' })
   })
