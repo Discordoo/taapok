@@ -2,6 +2,10 @@ Taapok
 =
 SUMMARY.md generator for Discordoo documentation
 
+DEPRECATED
+-
+no longer being used in Discordoo.
+
 Install
 -
 1. Using npm:
